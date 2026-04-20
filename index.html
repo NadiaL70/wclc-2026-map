@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WCLC 2026 | Global Participation Map</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+:root {
+    --primary: #012F87;
+    --accent: #C5203E;
+    --bg: #f4f6fa;
+    --panel: #ffffff;
+    --text: #1f2a37;
+    --muted: #6b7280;
+    --border: rgba(0,0,0,0.08);
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.page {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.theme {
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    max-width: 720px;
+    margin: 0 auto 30px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 30px;
+}
+
+.num {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+}
+
+.btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.btn:hover {
+    background: var(--primary);
+}
+
+.map-card {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 12px;
+    border: 1px solid var(--border);
+}
+
+#map {
+    height: 650px;
+    border-radius: 14px;
+}
+
+.footer {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<h1>WCLC 2026 Global Participation Map</h1>
+
+<div class="theme">
+Science Without Boundaries: Uniting the World Against Thoracic Cancer
+</div>
+
+<p class="subtitle">
+Explore the global reach of WCLC 2026 abstract submissions and see how the international thoracic oncology community is coming together.
+</p>
+
+<div class="stats">
+    <div class="card">
+        <div class="num" id="abstracts">0</div>
+        <div class="label">Abstract Submissions</div>
+    </div>
+    <div class="card">
+        <div class="num" id="countries">0</div>
+        <div class="label">Countries</div>
+    </div>
+    <div class="card">
+        <div class="num" id="cities">0</div>
+        <div class="label">Cities Mapped</div>
+    </div>
+</div>
+
+<a href="https://wclc.iaslc.org/registration-2026/" target="_blank" class="btn">
+Register for WCLC 2026
+</a>
+
+<div class="map-card">
+    <div id="map"></div>
+</div>
+
+<div class="footer">
+Live data from WCLC 2026 abstract submissions
+</div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS65lzNRaSW2IyCQQu7gCrPAB4VxrAQK584-f1Y0Hamo4ZUEQ3b2d4RsJ7wtikoDJjveuDpRayDhfc2/pub?output=csv";
+
+const map = L.map('map', {
+    center: [20, 0],
+    zoom: 2,
+    minZoom: 2
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+// IMPORTANT: keep your existing hubs object here
+const hubs = {}; // <-- paste your full hubs list here
+
+function normalizeCity(city) {
+    return city.trim().toLowerCase();
+}
+
+async function loadData() {
+    const res = await fetch(csvUrl);
+    const text = await res.text();
+
+    const rows = text.split('\n').slice(1);
+
+    let total = 0;
+    const countries = new Set();
+    const cityCounts = {};
+    const unmatched = new Set();
+
+    rows.forEach(row => {
+        const cols = row.split(',');
+        let city = cols[0]?.trim();
+        let country = cols[1]?.trim();
+
+        if (!city) return;
+
+        total++;
+        countries.add(country);
+
+        const normalized = normalizeCity(city);
+
+        if (!cityCounts[normalized]) {
+            cityCounts[normalized] = { count: 0, original: city, country };
+        }
+
+        cityCounts[normalized].count++;
+    });
+
+    let mappedCities = 0;
+
+    Object.values(cityCounts).forEach(entry => {
+        const name = entry.original;
+        const coords = hubs[name];
+
+        if (coords) {
+            mappedCities++;
+
+            L.circleMarker(coords, {
+                radius: Math.min(10 + entry.count * 0.5, 20),
+                color: "#C5203E",
+                fillColor: "#012F87",
+                fillOpacity: 0.7
+            })
+            .addTo(map)
+            .bindTooltip(`${name}, ${entry.country}<br>${entry.count} submissions`);
+        } else {
+            unmatched.add(name);
+        }
+    });
+
+    document.getElementById('abstracts').innerText = total.toLocaleString();
+    document.getElementById('countries').innerText = countries.size;
+    document.getElementById('cities').innerText = mappedCities;
+
+    console.log("UNMATCHED CITIES:", [...unmatched]);
+}
+
+loadData();
+</script>
+
+</body>
+</html>
