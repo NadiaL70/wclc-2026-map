@@ -19,9 +19,7 @@
     --shadow: 0 16px 40px rgba(1, 47, 135, 0.08);
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -133,17 +131,10 @@ h1 {
 }
 
 .map-section-title {
-    margin: 0 0 8px;
+    margin: 0 0 18px;
     color: var(--primary);
     font-size: 1.2rem;
     font-weight: 800;
-}
-
-.map-section-subtitle {
-    margin: 0 auto 18px;
-    max-width: 720px;
-    color: var(--muted);
-    line-height: 1.5;
 }
 
 .map-card {
@@ -234,9 +225,6 @@ h1 {
     </div>
 
     <h2 class="map-section-title">Global Abstract Submission Footprint</h2>
-    <p class="map-section-subtitle">
-        Each marker represents a city in the current abstract submission dataset.
-    </p>
 
     <div class="map-card">
         <div id="map"></div>
@@ -258,11 +246,6 @@ L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
 }).addTo(map);
 
-/*
-  Core manual hubs:
-  Keep known/important cities here for fast loads and consistency.
-  Missing cities will be geocoded automatically and cached in localStorage.
-*/
 const hubs = {
     "Seoul": [37.5665, 126.9780],
     "Busan": [35.1796, 129.0756],
@@ -275,7 +258,6 @@ const hubs = {
     "Cheongju": [36.6424, 127.4890],
     "Suwon": [37.2636, 127.0286],
     "Yongin": [37.2411, 127.1776],
-    "Gangnam-gu": [37.5172, 127.0473],
     "Jeonnam": [34.8679, 126.9910],
     "Jeollanamdo": [34.8679, 126.9910],
 
@@ -284,16 +266,13 @@ const hubs = {
     "Kyoto": [35.0116, 135.7681],
     "Nagoya": [35.1815, 136.9066],
     "Fukuoka": [33.5904, 130.4017],
-    "Fukuoka City": [33.5904, 130.4017],
     "Sapporo": [43.0618, 141.3545],
     "Hiroshima": [34.3853, 132.4553],
-    "Hiroshima City": [34.3853, 132.4553],
     "Nagasaki": [32.7503, 129.8777],
     "Sendai": [38.2682, 140.8694],
     "Yokohama": [35.4437, 139.6380],
     "Chiba": [35.6074, 140.1065],
     "Niigata": [37.9161, 139.0364],
-    "Niigata City": [37.9161, 139.0364],
     "Kanazawa": [36.5613, 136.6562],
     "Matsumoto": [36.2381, 137.9719],
     "Hamamatsu": [34.7108, 137.7261],
@@ -309,14 +288,10 @@ const hubs = {
     "Oita": [33.2396, 131.6093],
     "Sagamihara": [35.5715, 139.3732],
     "Tsu": [34.7191, 136.5050],
-    "Tsu City": [34.7191, 136.5050],
     "Kasama": [36.3824, 140.2768],
     "Kumamoto": [32.8031, 130.7079],
-    "Kumamoto City": [32.8031, 130.7079],
-    "Bunkyo-ku": [35.7081, 139.7528],
-    "Bunkyouku": [35.7081, 139.7528],
     "Sakai": [34.5733, 135.4831],
-    "Minami-ku, Sakai": [34.5140, 135.5000],
+    "Bunkyo-ku": [35.7081, 139.7528],
 
     "Beijing": [39.9042, 116.4074],
     "Shanghai": [31.2304, 121.4737],
@@ -356,10 +331,7 @@ const hubs = {
     "Wuxi": [31.4912, 120.3119],
     "Kaohsiung": [22.6273, 120.3014],
     "Taipei": [25.0330, 121.5654],
-    "Taipei City": [25.0330, 121.5654],
-    "New Taipei City": [25.0169, 121.4628],
     "Tainan": [22.9999, 120.2270],
-    "Tainan City": [22.9999, 120.2270],
     "Taichung": [24.1477, 120.6736],
     "Taoyuan": [24.9937, 121.3009],
 
@@ -372,7 +344,6 @@ const hubs = {
     "Surakarta": [-7.5666, 110.8160],
     "Tangerang": [-6.1783, 106.6319],
     "Ho Chi Minh City": [10.8231, 106.6297],
-    "Ho Chi Minh": [10.8231, 106.6297],
     "Hanoi": [21.0278, 105.8342],
     "Dhaka": [23.8103, 90.4125],
     "Rajshahi": [24.3745, 88.6042],
@@ -464,6 +435,7 @@ const hubs = {
     "Karlsruhe": [49.0069, 8.4037],
     "Grosshansdorf": [53.6667, 10.2833],
     "Heidelberg": [49.3988, 8.6724],
+    "Heidelberg VIC": [-37.7500, 145.0700],
     "Giessen": [50.5841, 8.6784],
     "Essen": [51.4556, 7.0116],
 
@@ -489,9 +461,6 @@ const hubs = {
     "Stockholm": [59.3293, 18.0686],
     "Uppsala": [59.8586, 17.6389],
     "Lund": [55.7047, 13.1910],
-    "Tønsberg": [59.2675, 10.4076],
-    "Lørenskog": [59.9274, 10.9553],
-    "Nordbyhagen": [59.9280, 10.9528],
     "Moscow": [55.7558, 37.6173],
     "St. Petersburg": [59.9311, 30.3609],
     "Yerevan": [40.1792, 44.4991],
@@ -505,7 +474,7 @@ const hubs = {
     "Izmir": [38.4237, 27.1428],
     "Antalya": [36.8969, 30.7133],
     "Bursa": [40.1885, 29.0610],
-    "Diyarbakir": [37.9144, 40.2306],
+    "Diyarbakır": [37.9144, 40.2306],
     "Eskisehir": [39.7767, 30.5206],
     "Van": [38.5012, 43.3723],
 
@@ -549,11 +518,7 @@ const hubs = {
 
     "Boston": [42.3601, -71.0589],
     "New York": [40.7128, -74.0060],
-    "New York City": [40.7128, -74.0060],
-    "Washington": [38.9072, -77.0369],
     "Washington D.C.": [38.9072, -77.0369],
-    "Washington Dc": [38.9072, -77.0369],
-    "District Of Columbia": [38.9072, -77.0369],
     "Chicago": [41.8781, -87.6298],
     "Houston": [29.7604, -95.3698],
     "Los Angeles": [34.0522, -118.2437],
@@ -583,7 +548,6 @@ const hubs = {
     "Palo Alto": [37.4419, -122.1430],
     "Stanford": [37.4275, -122.1697],
     "Camden": [39.9259, -75.1196],
-    "Cambridge MA": [42.3736, -71.1097],
     "Bronx": [40.8448, -73.8648],
     "Kelowna": [49.8880, -119.4960],
     "Hollywood": [26.0112, -80.1495],
@@ -628,7 +592,6 @@ const hubs = {
     "Memphis": [35.1495, -90.0490],
     "Ocala": [29.1872, -82.1401],
     "La Jolla": [32.8328, -117.2713],
-    "Faifax": [38.8462, -77.3064],
     "Fairfax": [38.8462, -77.3064],
     "Manhasset": [40.7979, -73.6996],
     "Saratoga Springs": [43.0831, -73.7846],
@@ -648,18 +611,14 @@ const hubs = {
     "Windsor": [42.3149, -83.0364],
 
     "Buenos Aires": [-34.6037, -58.3816],
-    "Ciudad De Buenos Aires": [-34.6037, -58.3816],
-    "La Plata": [-34.9215, -57.9545],
     "Pilar": [-34.4587, -58.9142],
     "Bogotá": [4.7110, -74.0721],
-    "Bogota D C": [4.7110, -74.0721],
     "Cali": [3.4516, -76.5320],
     "Lima": [-12.0464, -77.0428],
     "Mexico City": [19.4326, -99.1332],
     "Toluca": [19.2826, -99.6557],
     "Santiago": [-33.4489, -70.6693],
     "São Paulo": [-23.5505, -46.6333],
-    "Sao Paulo": [-23.5505, -46.6333],
     "Belo Horizonte": [-19.9167, -43.9345],
     "Manaus": [-3.1190, -60.0217],
     "Porto Alegre": [-30.0346, -51.2177],
@@ -668,23 +627,10 @@ const hubs = {
     "Chapecó": [-27.1004, -52.6152]
 };
 
-const cacheKey = "wclc2026_city_geocode_cache_v1";
-const geoCache = JSON.parse(localStorage.getItem(cacheKey) || "{}");
-
-function saveCache() {
-    localStorage.setItem(cacheKey, JSON.stringify(geoCache));
-}
-
 function parseCSVLine(line) {
     return line
         .split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
         .map(c => c.trim().replace(/^"|"$/g, ""));
-}
-
-function toTitleCase(str) {
-    return str
-        .toLowerCase()
-        .replace(/\b\w/g, char => char.toUpperCase());
 }
 
 function cleanText(str) {
@@ -692,33 +638,34 @@ function cleanText(str) {
         .trim()
         .replace(/\s+/g, " ")
         .replace(/[；;]/g, ",")
-        .replace(/[“”]/g, '"')
-        .replace(/[‘’]/g, "'")
         .replace(/\u3000/g, " ");
+}
+
+function toTitleCase(str) {
+    return str
+        .toLowerCase()
+        .replace(/\b\w/g, c => c.toUpperCase());
 }
 
 function normalizeCity(city, country = "") {
     if (!city) return "";
-
     city = cleanText(city);
     const countryNorm = cleanText(country).toLowerCase();
 
     const aliasMap = {
         "SãO Paulo": "São Paulo",
-        "São Paulo": "São Paulo",
         "Sao Paulo": "São Paulo",
-        "PetróPolis": "Petrópolis",
         "QuéBec": "Québec",
         "QuéBec City": "Québec City",
         "Lonon": "London",
         "Faifax": "Fairfax",
-        "Bogota D C": "Bogotá",
         "District Of Columbia": "Washington D.C.",
         "Washington Dc": "Washington D.C.",
+        "Washington D.C.": "Washington D.C.",
         "New York City": "New York",
         "Cheongju-Si": "Cheongju",
         "Goyangsi": "Goyang",
-        "Gangnam-Gu": "Gangnam-gu",
+        "Gangnam-Gu": "Seoul",
         "Niigata, Niigata": "Niigata",
         "Niigata City": "Niigata",
         "Taipei City": "Taipei",
@@ -730,7 +677,6 @@ function normalizeCity(city, country = "") {
         "Guang Zhou": "Guangzhou",
         "广州市": "Guangzhou",
         "Guangzhou City, Guangdong Province": "Guangzhou",
-        "Shenzhen, Guangdong": "Shenzhen",
         "Shen Zhen": "Shenzhen",
         "Wuhan,Hubei": "Wuhan",
         "Wu Han": "Wuhan",
@@ -760,14 +706,11 @@ function normalizeCity(city, country = "") {
         "Guiyang City": "Guiyang",
         "Xuzhou City, Jiangsu Province,": "Xuzhou",
         "Huai'An": "Huai'an",
-        "Diyarbakir": "Diyarbakır",
         "St.Petersburg": "St. Petersburg",
         "Villejuif; Paris": "Villejuif",
-        "Puerto Real, CáDiz": "Puerto Real",
-        "San SebastiáN De Los Reyes": "San Sebastián De Los Reyes",
         "Ariana, Tunis": "Ariana",
         "Pilar, Buenos Aires": "Pilar",
-        "Majadahonda, Madrid": "Majadahonda",
+        "Majadahonda, Madrid": "Madrid",
         "Chermside Qld": "Chermside",
         "Camperdown, New South Wales": "Camperdown",
         "Heidelberg": countryNorm === "australia" ? "Heidelberg VIC" : "Heidelberg",
@@ -779,8 +722,6 @@ function normalizeCity(city, country = "") {
         "Tsu City, Mie Pref": "Tsu",
         "1 Hikarigaoka, Fukushima, 960-1295": "Fukushima",
         "Hiroshima City, Hiroshima Prefecture": "Hiroshima",
-        "Tokai-Mura, Naka-Gun, Ibaraki": "Tokai",
-        "Mibu-Tochigi": "Mibu",
         "Kumamoto-City": "Kumamoto",
         "Fct.Abuja": "Abuja",
         "Nairobi,Kenya": "Nairobi",
@@ -794,82 +735,18 @@ function normalizeCity(city, country = "") {
     if (/^.+,\s*Kyoto$/i.test(city)) return "Kyoto";
     if (/^.+,\s*Fukushima/i.test(city)) return "Fukushima";
     if (/^.+,\s*Hiroshima/i.test(city)) return "Hiroshima";
-    if (/^.+,\s*Guangdong/i.test(city) && /guangzhou/i.test(city)) return "Guangzhou";
-    if (/^.+,\s*Fujian/i.test(city) && /fuzhou/i.test(city)) return "Fuzhou";
-    if (/^.+,\s*Jiangsu/i.test(city) && /nanjing/i.test(city)) return "Nanjing";
-    if (/^.+,\s*Shandong/i.test(city) && /jinan/i.test(city)) return "Jinan";
-    if (/^.+,\s*Hunan/i.test(city) && /changsha/i.test(city)) return "Changsha";
     if (/^.+,\s*Buenos Aires/i.test(city)) return "Buenos Aires";
     if (/^.+,\s*Madrid/i.test(city)) return "Madrid";
-    if (/^.+,\s*Guangzhou/i.test(city)) return "Guangzhou";
 
-    const title = toTitleCase(city);
-
-    const normalizedTitleAliases = {
-        "Lonon": "London",
-        "Faifax": "Fairfax",
-        "New York City": "New York",
-        "Washington Dc": "Washington D.C."
-    };
-
-    if (normalizedTitleAliases[title]) return normalizedTitleAliases[title];
-
-    return title;
+    return toTitleCase(city);
 }
 
-function getMarkerRadius() {
+function markerRadius() {
     return 4.2;
 }
 
-function getCityKey(city, country) {
+function makeKey(city, country) {
     return `${city}||${country}`.toLowerCase();
-}
-
-async function geocodeCity(city, country) {
-    const cacheId = getCityKey(city, country);
-    if (geoCache[cacheId]) return geoCache[cacheId];
-
-    const queries = [
-        `${city}, ${country}`,
-        city
-    ];
-
-    for (const q of queries) {
-        const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(q)}`;
-        try {
-            const res = await fetch(url, {
-                headers: {
-                    "Accept": "application/json"
-                }
-            });
-            const data = await res.json();
-            if (data && data.length > 0) {
-                const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-                geoCache[cacheId] = coords;
-                saveCache();
-                return coords;
-            }
-        } catch (err) {
-            console.warn("Geocode failed for:", q, err);
-        }
-    }
-
-    return null;
-}
-
-function createHostMarker() {
-    L.circleMarker([37.5665, 126.9780], {
-        radius: 6,
-        color: "#C5203E",
-        weight: 2,
-        fillColor: "#C5203E",
-        fillOpacity: 0.95
-    })
-    .addTo(map)
-    .bindTooltip("<strong>Seoul, Republic of Korea</strong>", {
-        direction: "top",
-        offset: [0, -8]
-    });
 }
 
 async function loadData() {
@@ -881,14 +758,15 @@ async function loadData() {
         const lines = csv.split(/\r?\n/).filter(line => line.trim() !== "");
         const dataRows = lines.slice(1);
 
-        const countries = new Set();
-        const uniqueCityCountry = new Map();
         let totalSubmissions = 0;
+        const countries = new Set();
+        const plotted = new Map();
+        const unmatched = [];
 
         dataRows.forEach(line => {
             const cols = parseCSVLine(line);
-            let rawCity = cols[0] || "";
-            let country = cleanText(cols[1] || "");
+            const rawCity = cols[0] || "";
+            const country = cleanText(cols[1] || "");
 
             if (!rawCity && !country) return;
 
@@ -898,35 +776,26 @@ async function loadData() {
             const city = normalizeCity(rawCity, country);
             if (!city) return;
 
-            const key = getCityKey(city, country);
-            if (!uniqueCityCountry.has(key)) {
-                uniqueCityCountry.set(key, { city, country });
+            const key = makeKey(city, country);
+            if (!plotted.has(key)) {
+                plotted.set(key, { city, country });
             }
         });
 
         let mappedCities = 0;
-        const missing = [];
 
-        for (const { city, country } of uniqueCityCountry.values()) {
-            let coords = hubs[city];
-
-            if (!coords && city === "Heidelberg VIC") {
-                coords = [-37.75, 145.07];
-            }
+        plotted.forEach(({ city, country }) => {
+            const coords = hubs[city];
 
             if (!coords) {
-                coords = await geocodeCity(city, country);
-            }
-
-            if (!coords) {
-                missing.push(`${city}${country ? `, ${country}` : ""}`);
-                continue;
+                unmatched.push(`${city}${country ? `, ${country}` : ""}`);
+                return;
             }
 
             mappedCities++;
 
             L.circleMarker(coords, {
-                radius: getMarkerRadius(),
+                radius: markerRadius(),
                 color: "#C5203E",
                 weight: 1,
                 fillColor: "#012F87",
@@ -940,19 +809,18 @@ async function loadData() {
                     offset: [0, -8]
                 }
             );
-        }
+        });
 
-        document.getElementById("abstracts").innerText = totalSubmissions.toLocaleString();
-        document.getElementById("countries").innerText = countries.size.toLocaleString();
-        document.getElementById("cities").innerText = mappedCities.toLocaleString();
+        document.getElementById("abstracts").textContent = totalSubmissions.toLocaleString();
+        document.getElementById("countries").textContent = countries.size.toLocaleString();
+        document.getElementById("cities").textContent = mappedCities.toLocaleString();
 
-        console.log("Unmatched cities:", missing.sort());
+        console.log("UNMATCHED CITIES:", unmatched.sort());
     } catch (error) {
         console.error("Error loading CSV data:", error);
     }
 }
 
-createHostMarker();
 loadData();
 </script>
 </body>
